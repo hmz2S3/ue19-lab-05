@@ -1,0 +1,44 @@
+# Nom de ton action
+name: Publier l'image Docker sur GHCR
+
+# Déclencheur : se lance quand on push sur "main"
+on:
+  push:
+    branches: [ "main" ]
+
+# Les tâches à faire
+jobs:
+  build-and-push:
+    # Utilise une machine Ubuntu pour faire le travail
+    runs-on: ubuntu-latest
+    
+    # Permissions OBLIGATOIRES pour publier un paquet
+    permissions:
+      contents: read
+      packages: write
+
+    # Les étapes
+    steps:
+      # 1. Récupère ton code (app.py, Dockerfile...)
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      # 2. Se connecte au registre de paquets de GitHub (GHCR)
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          # Ces variables sont fournies automatiquement par GitHub
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      # 3. Construit l'image et la publie
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          # Utilise le Dockerfile à la racine
+          context: .
+          # Dit à l'action de publier (push)
+          push: true
+          # Nomme l'image. Ex: ghcr.io/mon-pseudo/ue19-lab-05:latest
+          tags: ghcr.io/${{ github.repository }}:latest
