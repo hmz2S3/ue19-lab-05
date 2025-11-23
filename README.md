@@ -8,7 +8,7 @@ Ce projet est une simple application Python 3 qui utilise la librairie `requests
 
 1.  **Clonez le dépôt :**
     ```bash
-    git clone [https://github.com/](https://github.com/)[VOTRE_NOM_UTILISATEUR]/ue19-lab-05.git
+    git clone https://github.com/hmz2S3/ue19-lab-05.git
     cd ue19-lab-05
     ```
 
