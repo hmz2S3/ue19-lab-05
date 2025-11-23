@@ -41,4 +41,4 @@ jobs:
           # Dit à l'action de publier (push)
           push: true
           # Nomme l'image. Ex: ghcr.io/mon-pseudo/ue19-lab-05:latest
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository | lower }}:latest
